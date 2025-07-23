@@ -5,12 +5,13 @@ import { streamText } from "ai";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
+  console.log(JSON.stringify(messages, null, 2));
 
   try {
     const response = streamText({
       model: openai("gpt-4o-mini"),
-      system: "You are an AI assistant processing a JavaScript array of chat messages. Analyze the user's latest request, referencing past requests, and respond directly to their query.Respond in markdown.",
-      prompt: messages.toString(),
+      system: "You are an AI assistant processing a JavaScript array of chat messages. Analyze the user's latest request, referencing past requests, and respond directly to their query. Only mention what they wrote before if it's relevant.",
+      prompt: JSON.stringify(messages, null, 2),
       abortSignal: req.signal,
       maxTokens: 1000
     });
@@ -20,6 +21,7 @@ export async function POST(req: Request) {
         "Content-Type": "text/event-stream"
       }
     });
+     return;
   } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       return NextResponse.json(

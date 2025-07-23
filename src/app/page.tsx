@@ -24,11 +24,6 @@ const ChatMessage = ({ message }: MessageProps) => {
             {message.content}
           </div>
         </Card>
-        {!isUser && (
-          <div className="flex justify-end mt-1 mr-1">
-            <Image src="/logomark.png" alt="AI Avatar" width={24} height={24} className="rounded-full" />
-          </div>
-        )}
       </div>
     </div>
   );
@@ -100,7 +95,6 @@ export default function Main() {
       }
     } catch (error) {
       console.error("Error streaming response:", error);
-      // Handle error state in UI
     } finally {
       setIsLoading(false);
     }
@@ -112,8 +106,8 @@ export default function Main() {
 
   const suggestions = [
     { text: "What can I ask you to do?" },
-    { text: "Which one of my projects is performing the best?" },
-    { text: "What projects should I be concerned about right now?" },
+    { text: "Tell me a joke" },
+    { text: "How to start a business" },
   ];
 
   return (
@@ -130,7 +124,7 @@ export default function Main() {
         </h1>
       </header>
 
-      <main className="flex flex-col w-full flex-grow justify-end max-w-4xl z-10 overflow-hidden">
+      <main className="flex flex-col w-full flex-grow justify-end max-w-4xl z-10 overflow-hidden pb-10">
         <div className="flex-grow overflow-y-auto space-y-4 p-4 scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
           {messages.filter(m => m.role === 'user' || m.role === 'assistant').map((msg) => (
             <ChatMessage key={msg.id} message={msg} />
@@ -140,7 +134,7 @@ export default function Main() {
         </div>
       </main>
 
-      <footer className="w-full flex flex-col items-center pt-4 z-10 max-w-4xl">
+      <footer className="w-full fixed bottom-4 align-middle max-w-4xl flex flex-col items-center pt-4 px-4 z-10">
         {messages.length === 0 && (
           <div className="w-full flex flex-col justify-start items-start gap-2 mb-4">
             <p className="font-bold text-[#56637e] text-sm tracking-tight leading-normal">
@@ -162,10 +156,10 @@ export default function Main() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex w-full justify-between p-2.5 bg-white rounded-lg border gap-1 border-solid border-[#1602114c] items-center shadow-lg">
+        <form onSubmit={handleSubmit} className=" flex w-full justify-between p-2.5 bg-white rounded-lg border gap-1 border-solid border-[#1602114c] items-center shadow-lg">
           <Textarea
             ref={textareaRef}
-            className="border-none shadow-none font-sans font-normal text-[#56637e] text-sm tracking-tight leading-normal w-full focus:ring-0 resize-none overflow-y-auto"
+            className="border-none shadow-none font-sans font-normal text-[#160211] text-sm tracking-tight leading-normal w-full focus:ring-0 resize-none overflow-y-auto"
             style={{ maxHeight: '30vh' }}
             placeholder="Ask me anything"
             value={input}
