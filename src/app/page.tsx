@@ -82,7 +82,7 @@ export default function Main() {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMessage: AIMessage = { id: (Date.now() + 1).toString(), role: 'assistant', content: '' };
+      const assistantMessage: AIMessage = { id: (Date.now() + 1).toString(), role: 'assistant', content: '' };
       setMessages(prev => [...prev, assistantMessage]);
 
       let done = false;
@@ -120,7 +120,7 @@ export default function Main() {
       <header className="w-full flex flex-col gap-2 items-center justify-center py-4 z-10">
         <Image src="/logomark.png" alt="Logo" width={48} height={48} />
         <h1 className="font-sans font-medium text-[#160211] text-2xl tracking-tight leading-normal">
-          Ask our AI anything
+          Ask AI anything
         </h1>
       </header>
 

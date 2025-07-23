@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { openai } from "@ai-sdk/openai"
 import { streamText } from "ai";
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -21,8 +23,7 @@ export async function POST(req: Request) {
         "Content-Type": "text/event-stream"
       }
     });
-     return;
-  } catch (error) {
+    } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       return NextResponse.json(
         { error: errorMessage },
